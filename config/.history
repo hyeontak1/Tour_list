@@ -10,8 +10,9 @@ git config --global core.precomposeunicode true
 git config --global core.quotepath false
 git pull origin master
 git init
-git push origin master
 git add -all
-git add --all
 git remote add origin git@github.com:hyeontak1/Tour_list.git
 git add .
+git commit -m "boardmapper"
+git push origin master
+git add --all
