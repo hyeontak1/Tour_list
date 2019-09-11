@@ -5,16 +5,22 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import lombok.extern.slf4j.Slf4j;
+import tour.list.web.helper.WebHelper;
 import uap_clj.java.api.Browser;
 import uap_clj.java.api.Device;
 import uap_clj.java.api.OS;
 
 @Slf4j
 public class AppInterceptor extends HandlerInterceptorAdapter {
+	
+	@Autowired
+	WebHelper webHelper;
+	
     long startTime=0, endTime=0;
 
     /**
@@ -84,6 +90,8 @@ public class AppInterceptor extends HandlerInterceptorAdapter {
             log.debug(String.format("(p) <-- %s = %s", key, String.join(",", value)));
         }
 
+        webHelper.init();
+        
         return super.preHandle(request, response, handler);
     }
 
