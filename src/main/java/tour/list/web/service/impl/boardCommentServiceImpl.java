@@ -26,7 +26,7 @@ public class boardCommentServiceImpl implements boardCommentService{
 	public boardComment getBoardCommentItem(boardComment input) throws Exception {
 		boardComment result = null;
 		try {
-			result = sqlSession.selectOne("boardComment.selectItem", input);
+			result = sqlSession.selectOne("boardCommentMapper.selectItem", input);
 			if(result == null) {
 				throw new NullPointerException("result=null");
 			}
@@ -45,7 +45,7 @@ public class boardCommentServiceImpl implements boardCommentService{
 	public List<boardComment> getBoardCommentList(boardComment input) throws Exception {
 		List<boardComment> result = null;
 		try {
-			result = sqlSession.selectList("boardComment.selectList", input);
+			result = sqlSession.selectList("boardCommentMapper.selectList", input);
 			if(result == null) {
 				throw new NullPointerException("result=null");
 			}
@@ -64,7 +64,7 @@ public class boardCommentServiceImpl implements boardCommentService{
 	public int getBoardCommentCount(boardComment input) throws Exception {
 		int result = 0;
 		try {
-			result = sqlSession.selectOne("boardComment.selectCount", input);
+			result = sqlSession.selectOne("boardCommentMapper.selectCount", input);
 		} catch (Exception e) {
 			log.error(e.getLocalizedMessage());
 			throw new Exception("데이터 조회에 실패했습니다.");
@@ -77,7 +77,7 @@ public class boardCommentServiceImpl implements boardCommentService{
 	public int addBoardComment(boardComment input) throws Exception {
 		int result = 0;
 		try {
-			result = sqlSession.insert("boardComment.insertItem", input);
+			result = sqlSession.insert("boardCommentMapper.insertItem", input);
 			if(result == 0) {
 				throw new NullPointerException("result=0");
 			}
@@ -96,7 +96,7 @@ public class boardCommentServiceImpl implements boardCommentService{
 	public int editBoardComment(boardComment input) throws Exception {
 		int result = 0;
 		try {
-			result = sqlSession.update("boardComment.updateItem", input);
+			result = sqlSession.update("boardCommentMapper.updateItem", input);
 			if(result == 0) {
 				throw new NullPointerException("result=0");
 			}

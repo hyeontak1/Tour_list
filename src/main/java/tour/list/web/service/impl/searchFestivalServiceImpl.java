@@ -7,26 +7,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
-import tour.list.web.model.detailCommon;
-import tour.list.web.service.detailCommonService;
+import tour.list.web.model.searchFestival;
+import tour.list.web.service.searchFestivalService;
 
 @Slf4j
 @Service
-public class detailCommonServiceImpl implements detailCommonService{
-	
+public class searchFestivalServiceImpl implements searchFestivalService{
+
 	@Autowired
 	SqlSession sqlSession;
 	
-	public detailCommonServiceImpl(SqlSession sqlSession) {
+	public searchFestivalServiceImpl(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
 	}
 	
 	// 데이터 상세 조회
 	@Override
-	public detailCommon getDetailCommonItem(detailCommon input) throws Exception {
-		detailCommon result = null;
+	public searchFestival getSearchFestivalItem(searchFestival input) throws Exception {
+		searchFestival result = null;
 		try {
-			result = sqlSession.selectOne("detailCommonMapper.selectItem", input);
+			result = sqlSession.selectOne("searchFestivalMapper.selectItem", input);
 			if(result == null) {
 				throw new NullPointerException("result=null");
 			}
@@ -42,10 +42,10 @@ public class detailCommonServiceImpl implements detailCommonService{
 
 	// 데이터 목록 조회
 	@Override
-	public List<detailCommon> getDetailCommonList(detailCommon input) throws Exception {
-		List<detailCommon> result = null;
+	public List<searchFestival> getSearchFestivalList(searchFestival input) throws Exception {
+		List<searchFestival> result = null;
 		try {
-			result = sqlSession.selectList("detailCommonMapper.selectList", input);
+			result = sqlSession.selectList("searchFestivalMapper.selectList", input);
 			if(result == null) {
 				throw new NullPointerException("result=null");
 			}
@@ -61,10 +61,10 @@ public class detailCommonServiceImpl implements detailCommonService{
 
 	// 데이터 갯수 조회
 	@Override
-	public int getDetailCommonCount(detailCommon input) throws Exception {
+	public int getSearchFestivalCount(searchFestival input) throws Exception {
 		int result = 0;
 		try {
-			result = sqlSession.selectOne("detailCommonMapper.selectCount", input);
+			result = sqlSession.selectOne("searchFestivalMapper.selectCount", input);
 		} catch (Exception e) {
 			log.error(e.getLocalizedMessage());
 			throw new Exception("데이터 조회에 실패했습니다.");
@@ -74,10 +74,10 @@ public class detailCommonServiceImpl implements detailCommonService{
 
 	// 데이터 등록하기
 	@Override
-	public int addDetailCommon(detailCommon input) throws Exception {
+	public int addSearchFestival(searchFestival input) throws Exception {
 		int result = 0;
 		try {
-			result = sqlSession.insert("detailCommonMapper.insertItem", input);
+			result = sqlSession.insert("searchFestivalMapper.insertItem", input);
 			if(result == 0) {
 				throw new NullPointerException("result=0");
 			}
@@ -93,10 +93,10 @@ public class detailCommonServiceImpl implements detailCommonService{
 
 	// 데이터 수정하기
 	@Override
-	public int editDetailCommon(detailCommon input) throws Exception {
+	public int editSearchFestival(searchFestival input) throws Exception {
 		int result = 0;
 		try {
-			result = sqlSession.update("detailCommonMapper.updateItem", input);
+			result = sqlSession.update("searchFestivalMapper.updateItem", input);
 			if(result == 0) {
 				throw new NullPointerException("result=0");
 			}
@@ -112,10 +112,10 @@ public class detailCommonServiceImpl implements detailCommonService{
 
 	// 데이터 삭제하기
 	@Override
-	public int DeletedetailCommon(detailCommon input) throws Exception {
+	public int deleteSearchFestival(searchFestival input) throws Exception {
 		int result = 0;
 		try {
-			result = sqlSession.delete("detailCommondMapper.deleteItem", input);
+			result = sqlSession.delete("searchFestivalMapper.deleteItem", input);
 			if (result == 0) {
 				throw new NullPointerException("result=0");
 			}
