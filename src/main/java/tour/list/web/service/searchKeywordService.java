@@ -2,7 +2,9 @@ package tour.list.web.service;
 
 import java.util.List;
 
-public interface searchKeyword {
+import tour.list.web.model.searchKeyword;
+
+public interface searchKeywordService {
 
 	 /**
      * 데이터 상세 조회

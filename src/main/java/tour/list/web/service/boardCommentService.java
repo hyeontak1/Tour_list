@@ -2,7 +2,9 @@ package tour.list.web.service;
 
 import java.util.List;
 
-public interface boardComment {
+import tour.list.web.model.boardComment;
+
+public interface boardCommentService {
 
 	 /**
      * 데이터 상세 조회

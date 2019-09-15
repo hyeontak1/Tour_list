@@ -2,7 +2,9 @@ package tour.list.web.service;
 
 import java.util.List;
 
-public interface member {
+import tour.list.web.model.member;
+
+public interface memberService {
 
 	 /**
      * 데이터 상세 조회

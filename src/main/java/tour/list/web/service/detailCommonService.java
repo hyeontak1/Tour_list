@@ -2,7 +2,9 @@ package tour.list.web.service;
 
 import java.util.List;
 
-public interface detailCommon {
+import tour.list.web.model.detailCommon;
+
+public interface detailCommonService {
 
 	 /**
      * 데이터 상세 조회
