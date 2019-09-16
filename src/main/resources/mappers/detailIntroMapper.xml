@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="detailIntroMapper">
+    
+    <!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+    <resultMap id="detailIntroMap" type="tour.list.web.model.detailIntro">
+        <!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+        <result property="resultCode" column="resultCode" />
+        <result property="resultMsg" column="resultMsg" />
+        <result property="numOfRows" column="numOfRows" />
+        <result property="pageNo" column="pageNo" />
+        <result property="totalCount" column="totalCount" />
+        <result property="contentid" column="contentid" />
+        <result property="contentypeid" column="contentypeid" />
+        <result property="chkbabycarriage" column="chkbabycarriage" />
+        <result property="chkreditcard" column="chkreditcard" />
+        <result property="chkpet" column="chkpet" />
+        <result property="chkbabycarriageculture" column="chkbabycarriageculture" />
+        <result property="chkpetculture" column="chkpetculture" />
+        <result property="restdateculture" column="restdateculture" />
+        <result property="usefee" column="usefee" />
+        <result property="usetimeculture" column="usetimeculture" />
+        <result property="eventenddate" column="eventenddate" />
+        <result property="eventhomepage" column="eventhomepage" />
+        <result property="eventplace" column="eventplace" />
+        <result property="eventstartdate" column="eventstartdate" />
+        <result property="placeinfo" column="placeinfo" />
+        <result property="playtime" column="playtime" />
+        <result property="program" column="program" />
+        <result property="sponsor2" column="sponsor2" />
+        <result property="sponsor2tel" column="sponsor2tel" />
+        <result property="usetimefestival" column="usetimefestival" />
+        <result property="chkbabycarringeleports" column="chkbabycarringeleports" />
+        <result property="chkcreditcardleports" column="chkcreditcardleports" />
+        <result property="chkpetleports" column="chkpetleports" />
+        <result property="board_idBoard" column="board_idBoard" />
+    </resultMap>
+    
+    <!-- 단일행 조회를 위한 기능 정의 -->
+    <select id="selectItem" 
+            parameterType="tour.list.web.model.detailIntro"
+            resultMap="detailIntroMap">
+        <!-- "#{변수명}" 으로 표시된 곳에 멤버변수가 치환된다. -->
+        SELECT resultCode,resultMsg,numOfRows,pageNo,totalCount,contentid,contentypeid,chkbabycarriage,chkreditcard,chkpet,
+        	chkbabycarriageculture,chkcreditcardculture,chkpetculture,restdateculture,usefee,usetimeculture,eventenddate,eventhomepage,
+        	eventplace,eventstartdate,placeinfo,playtime,program,sponsor2,sponsor2tel,usetimefestival,chkbabycarringeleports,chkcreditcardleports,chkpetleports,board_idBoard FROM detailIntro WHERE resultCode=#{resultCode};
+    </select>
+    
+    <!-- 다중행 조회를 위한 기능 정의 -->
+     <select id ="selectList"
+       parameterType="tour.list.web.model.detailIntro"
+       resultMap="detailIntroMap">
+       select resultCode,resultMsg,numOfRows,pageNo,totalCount,contentid,contentypeid,chkbabycarriage,chkreditcard,chkpet,
+        	chkbabycarriageculture,chkcreditcardculture,chkpetculture,restdateculture,usefee,usetimeculture,eventenddate,eventhomepage,
+        	eventplace,eventstartdate,placeinfo,playtime,program,sponsor2,sponsor2tel,usetimefestival,chkbabycarringeleports,chkcreditcardleports,chkpetleports,board_idBoard from detailIntro
+       <where>
+       <!-- Beans의 멤버 변수 -->
+       <!-- 조건에 맞는 조건절을 추가 -->
+          <if test="contentid != null and contentid != ''">
+          <!-- LIKE '%#{contentid}%'->LIKE '%',#{검색어},'%' -홑따옴표('') -->
+             contentid LIKE concat('%',#{contentid},'%')
+          </if>
+          
+          <if test= "contentypeid != null and contentid !=''">
+           or contentypeid LIKE 
+               ('%',#{contentypeid},'%')
+          </if>
+       </where>
+       order by resultCode DESC
+       <if test ="listCount>0">
+          LIMIT #{offset},#{listCount}
+       </if>
+       </select>
+    
+    <!-- 데이터 수 조회를 위한 기능 정의 -->
+    <select id="selectCount" 
+            parameterType="tour.list.web.model.detailIntro"
+            resultType="int">
+        <!-- 이 안에서 처리할 SQL문을 명시한다. -->
+        SELECT count(*) FROM detailIntro;
+        <where>
+       <!-- Beans의 멤버 변수 -->
+       <!-- 조건에 맞는 조건절을 추가 -->
+          <if test="contentid != null and contentid != ''">
+          <!-- LIKE '%#{contentid}%'->LIKE '%',#{검색어},'%' -홑따옴표('') -->
+             contentid LIKE concat('%',#{contentid},'%')
+          </if>
+          
+          <if test= "contentypeid != null and contentid !=''">
+           or contentypeid LIKE 
+               ('%',#{contentypeid},'%')
+          </if>
+       </where>
+    </select>
+    
+    <!-- 데이터 저장을 위한 기능 정의 -->
+    <insert id="insertItem" 
+            parameterType="tour.list.web.model.detailIntro"
+            useGeneratedKeys="true"
+            keyProperty="resultCode">
+        <!-- "#{변수명}" 으로 표시된 곳에 Beans의 멤버변수가 치환된다. -->
+        INSERT INTO detailIntro (resultMsg,numOfRows,pageNo,totalCount,contentid,contentypeid,chkbabycarriage,chkreditcard,chkpet,chkbabycarriageculture,chkcreditcardculture,chkpetculture
+        ,restdateculture,usefee,usetimeculture,eventenddate,eventhomepage,eventplace,eventstartdate,placeinfo,playtime,program,sponsor2,sponsor2tel,usetimefestival,chkbabycarringeleports,chkcreditcardleports,chkpetleports,board_idBoard) 
+        VALUES (#{resultMsg},#{numOfRows},#{pageNo},#{totalCount},#{contentid},#{contentypeid},#{chkbabycarriage},#{chkreditcard},#{chkpet},#{chkbabycarriageculture},#{chkcreditcardculture},#{chkpetculture},#{restdateculture},#{usefee},#{usetimeculture},#{eventenddate},#{eventhomepage},#{eventplace},#{eventstartdate},#{placeinfo},#{playtime}
+        ,#{program},#{sponsor2},#{sponsor2tel},#{usetimefestival},#{chkbabycarringeleports},#{chkcreditcardleports},#{chkpetleports},#{board_idBoard});
+    </insert>
+    
+    <!-- 데이터 삭제를 위한 기능 정의 -->
+    <delete id="deleteItem" parameterType="tour.list.web.model.detailIntro">
+        <!-- 이 안에서 처리할 SQL문을 명시한다. -->
+        DELETE FROM detailIntro WHERE resultCode=#{resultCode};
+    </delete>
+    
+    <!-- 데이터 갱신을 위한 기능 정의 -->
+    <update id="updateItem" parameterType="tour.list.web.model.detailIntro">
+        <!-- 이 안에서 처리할 SQL문을 명시한다. -->
+        UPDATE detailIntro SET resultMsg=#{resultMsg}, numOfRows=#{numOfRows}, pageNo=#{pageNo}, totalCount=#{totalCount}, contentid=#{contentid}, contentypeid=#{contentypeid}, chkbabycarriage=#{chkbabycarriage}, chkreditcard=#{chkreditcard}, chkpet=#{chkpet}, chkbabycarriageculture=#{chkbabycarriageculture}, chkcreditcardculture=#{chkcreditcardculture},
+         chkpetculture=#{chkpetculture},restdateculture=#{restdateculture},usefee=#{usefee},usetimeculture=#{usetimeculture},eventenddate=#{eventenddate},eventhomepage=#{eventhomepage},eventplace=#{eventplace}
+         ,eventstartdate=#{eventstartdate},placeinfo=#{placeinfo},playtime=#{playtime},eventplace=#{eventplace},program=#{program},sponsor2=#{sponsor2},sponsor2tel=#{sponsor2tel},usetimefestival=#{usetimefestival},
+         chkbabycarringeleports=#{chkbabycarringeleports},chkcreditcardleports=#{chkcreditcardleports},chkpetleports=#{chkpetleports},board_idBoard=#{board_idBoard} Where resultCode=#{resultCode};
+    </update>
+    
+    
+</mapper>
