@@ -11,9 +11,9 @@ public class detailIntro {
 	private int pageNo;
 	private int totalCount;
 	private int contentid;
-	private int contentypeid;
+	private int contenttypeid;
 	private String chkbabycarriage;
-	private String chkreditcard;
+	private String chkcreditcard;
 	private String chkpet;
 	private String chkbabycarriageculture;
 	private String chkcreditcardculture;
@@ -31,7 +31,7 @@ public class detailIntro {
 	private String sponsor2;
 	private String sponsor2tel;
 	private String usetimefestival;
-	private String chkbabycarringeleports;
+	private String chkbabycarriageleports;
 	private String chkcreditcardleports;
 	private String chkpetleports;
 	private int board_idBoard;

@@ -11,7 +11,7 @@ public class detailCommon {
 	private int pageNo;
 	private int totalCount;
 	private int contentid;
-	private int contentypeid;
+	private int contenttypeid;
 	private String createdtime;
 	private String homepage;
 	private String modifiedtime;

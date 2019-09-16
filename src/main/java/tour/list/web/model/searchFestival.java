@@ -12,7 +12,7 @@ public class searchFestival {
 	private int totalCount;
 	private String addr1;
 	private int contentid;
-	private int contentypeid;
+	private int contenttypeid;
 	private String createdtime;
 	private String eventstartdate;
 	private String eventenddate;
