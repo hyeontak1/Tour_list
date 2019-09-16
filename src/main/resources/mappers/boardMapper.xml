@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="boardMapper">
+    
+    <!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+    <resultMap id="boardMap" type="tour.list.web.model.board">
+        <!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+        <result property="idBoard" column="idBoard" />
+        <result property="title" column="title" />
+        <result property="write" column="write" />
+        <result property="content" column="content" />
+        <result property="date" column="date" />
+        <result property="member1_idNum" column="member1_idNum" />
+    </resultMap>
+    
+    <!-- 단일행 조회를 위한 기능 정의 -->
+    <select id="selectItem" 
+            parameterType="tour.list.web.model.board"
+            resultMap="boardMap">
+        <!-- "#{변수명}" 으로 표시된 곳에 멤버변수가 치환된다. -->
+        SELECT idBoard,title,write,content,date,member1_idNum FROM board WHERE idBoard=#{idBoard};
+    </select>
+    
+    <!-- 다중행 조회를 위한 기능 정의 -->
+     <select id ="selectList"
+       parameterType="tour.list.web.model.board"
+       resultMap="boardMap">
+       select idBoard,title,write,content,date,member1_idNum from board
+       <where>
+       <!-- Beans의 멤버 변수 -->
+       <!-- 조건에 맞는 조건절을 추가 -->
+          <if test="title != null and title != ''">
+          <!-- LIKE '%#{dname}%'->LIKE '%',#{검색어},'%' -홑따옴표('') -->
+             title LIKE concat('%',#{title},'%')
+          </if>
+          
+          <if test= "write != null and write !=''">
+           or write LIKE 
+               ('%',#{write},'%')
+          </if>
+       </where>
+       order by idBoard DESC
+       <if test ="listCount>0">
+          LIMIT #{offset},#{listCount}
+       </if>
+       </select>
+    
+    <!-- 데이터 수 조회를 위한 기능 정의 -->
+    <select id="selectCount" 
+            parameterType="tour.list.web.model.board"
+            resultType="int">
+        <!-- 이 안에서 처리할 SQL문을 명시한다. -->
+        SELECT count(*) FROM board;
+        <where>
+       <!-- Beans의 멤버 변수 -->
+       <!-- 조건에 맞는 조건절을 추가 -->
+          <if test="title != null and title != ''">
+          <!-- LIKE '%#{title}%'->LIKE '%',#{검색어},'%' -홑따옴표('') -->
+             title LIKE concat('%',#{title},'%')
+          </if>
+          
+          <if test= "write != null and write !=''">
+           or write LIKE 
+               ('%',#{write},'%')
+          </if>
+       </where>
+    </select>
+    
+    <!-- 데이터 저장을 위한 기능 정의 -->
+    <insert id="insertItem" 
+            parameterType="tour.list.web.model.board"
+            useGeneratedKeys="true"
+            keyProperty="idBoard">
+        <!-- "#{변수명}" 으로 표시된 곳에 Beans의 멤버변수가 치환된다. -->
+        INSERT INTO board (title,write,content,date,member1_idNum) VALUES (#{title},#{write},#{content},#{date},#{member1_idNum});
+    </insert>
+    
+    <!-- 데이터 삭제를 위한 기능 정의 -->
+    <delete id="deleteItem" parameterType="tour.list.web.model.board">
+        <!-- 이 안에서 처리할 SQL문을 명시한다. -->
+        DELETE FROM board WHERE idBoard=#{idBoard};
+    </delete>
+    
+    <!-- 데이터 갱신을 위한 기능 정의 -->
+    <update id="updateItem" parameterType="tour.list.web.model.board">
+        <!-- 이 안에서 처리할 SQL문을 명시한다. -->
+        UPDATE board SET title=#{title}, write=#{write}, content=#{content}, date=#{date}, member1_idNum=#{member1_idNum} Where idBoard=#{idBoard};
+    </update>
+    
+    
+</mapper>

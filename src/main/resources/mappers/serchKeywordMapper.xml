@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="searchKeywordMapper">
+    
+    <!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+    <resultMap id="searchKeywordMap" type="tour.list.web.model.searchKeyword">
+        <!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+        <result property="resultCode" column="resultCode" />
+        <result property="resultMsg" column="resultMsg" />
+        <result property="numOfRows" column="numOfRows" />
+        <result property="pageNo" column="pageNo" />
+        <result property="totalCount" column="totalCount" />
+        <result property="addr1" column="addr1" />
+        <result property="contentid" column="contentid" />
+        <result property="contentypeid" column="contentypeid" />
+        <result property="createdtime" column="createdtime" />
+        <result property="firstimage" column="firstimage" />
+        <result property="firstimage2" column="firstimage2" />
+        <result property="modifiedtime" column="modifiedtime" />
+        <result property="tel" column="tel" />
+        <result property="title" column="title" />
+        <result property="board_idBoard" column="board_idBoard" />
+    </resultMap>
+    
+    <!-- 단일행 조회를 위한 기능 정의 -->
+    <select id="selectItem" 
+            parameterType="tour.list.web.model.searchKeyword"
+            resultMap="searchKeywordMap">
+        <!-- "#{변수명}" 으로 표시된 곳에 멤버변수가 치환된다. -->
+        SELECT resultCode,resultMsg,numOfRows,pageNo,totalCount,addr1,contentid,contentypeid,createdtime,firstimage,firstimage2,modifiedtime,tel,title,board_idBoard FROM searchKeyword WHERE resultCode=#{resultCode};
+    </select>
+    
+    <!-- 다중행 조회를 위한 기능 정의 -->
+     <select id ="selectList"
+       parameterType="tour.list.web.model.searchKeyword"
+       resultMap="searchKeywordMap">
+       select  resultCode,resultMsg,numOfRows,pageNo,totalCount,addr1,contentid,contentypeid,createdtime,firstimage,firstimage2,modifiedtime,tel,title,board_idBoard FROM searchKeyword
+       <where>
+       <!-- Beans의 멤버 변수 -->
+       <!-- 조건에 맞는 조건절을 추가 -->
+          <if test="resultMsg != null and resultMsg != ''">
+          <!-- LIKE '%#{resultMsg}%'->LIKE '%',#{검색어},'%' -홑따옴표('') -->
+             resultMsg LIKE concat('%',#{resultMsg},'%')
+          </if>
+          
+          <if test= "numOfRows != null and resultMsg !=''">
+           or numOfRows LIKE 
+               ('%',#{numOfRows},'%')
+          </if>
+       </where>
+       order by resultCode DESC
+       <if test ="listCount>0">
+          LIMIT #{offset},#{listCount}
+       </if>
+       </select>
+    
+    <!-- 데이터 수 조회를 위한 기능 정의 -->
+    <select id="selectCount" 
+            parameterType="tour.list.web.model.searchKeyword"
+            resultType="int">
+        <!-- 이 안에서 처리할 SQL문을 명시한다. -->
+        SELECT count(*) FROM searchFestival;
+        <where>
+       <!-- Beans의 멤버 변수 -->
+       <!-- 조건에 맞는 조건절을 추가 -->
+          <if test="resultMsg != null and resultMsg != ''">
+          <!-- LIKE '%#{resultMsg}%'->LIKE '%',#{검색어},'%' -홑따옴표('') -->
+             resultMsg LIKE concat('%',#{resultMsg},'%')
+          </if>
+          
+          <if test= "numOfRows != null and resultMsg !=''">
+           or numOfRows LIKE 
+               ('%',#{numOfRows},'%')
+          </if>
+       </where>
+    </select>
+    
+    <!-- 데이터 저장을 위한 기능 정의 -->
+    <insert id="insertItem" 
+            parameterType="tour.list.web.model.searchKeyword"
+            useGeneratedKeys="true"
+            keyProperty="resultCode">
+        <!-- "#{변수명}" 으로 표시된 곳에 Beans의 멤버변수가 치환된다. -->
+        INSERT INTO searchKeyword (resultMsg,numOfRows,pageNo,totalCount,addr1,contentid,contentypeid,createdtime,firstimage,firstimage2,modifiedtime,tel,title,board_idBoard) VALUES (#{resultMsg},#{numOfRows},#{pageNo},#{totalCount},#{addr1}#{contentid},#{contentypeid},#{createdtime}
+        ,#{firstimage},#{firstimage2},#{modifiedtime},#{tel},#{title},#{board_idBoard});
+    </insert>
+    
+    <!-- 데이터 삭제를 위한 기능 정의 -->
+    <delete id="deleteItem" parameterType="tour.list.web.model.searchKeyword">
+        <!-- 이 안에서 처리할 SQL문을 명시한다. -->
+        DELETE FROM searchKeyword WHERE resultCode=#{resultCode};
+    </delete>
+    
+    <!-- 데이터 갱신을 위한 기능 정의 -->
+    <update id="updateItem" parameterType="tour.list.web.model.searchKeyword">
+        <!-- 이 안에서 처리할 SQL문을 명시한다. -->
+        UPDATE searchFestival SET resultMsg=#{resultMsg}, numOfRows=#{numOfRows}, pageNo=#{pageNo}, totalCount=#{totalCount}, addr1=#{addr1}, contentid=#{contentid}, contentypeid=#{contentypeid}, createdtime=#{createdtime}
+        ,firstimage=#{firstimage}, firstimage2=#{firstimage2}, modifiedtime=#{modifiedtime}, tel=#{tel}, title=#{title}, board_idBoard=#{board_idBoard} Where resultCode=#{resultCode};
+    </update>
+    
+    
+</mapper>

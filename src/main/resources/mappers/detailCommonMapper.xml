@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="detailCommonMapper">
+    
+    <!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+    <resultMap id="detailCommonMap" type="tour.list.web.model.detailCommon">
+        <!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+        <result property="resultCode" column="resultCode" />
+        <result property="resultMsg" column="resultMsg" />
+        <result property="numOfRows" column="numOfRows" />
+        <result property="pageNo" column="pageNo" />
+        <result property="totalCount" column="totalCount" />
+        <result property="contentid" column="contentid" />
+        <result property="contentypeid" column="contentypeid" />
+        <result property="createdtime" column="createdtime" />
+        <result property="homepage" column="homepage" />
+        <result property="title" column="title" />
+        <result property="overview" column="overview" />
+        <result property="board_idBoard" column="board_idBoard" />
+    </resultMap>
+    
+    <!-- 단일행 조회를 위한 기능 정의 -->
+    <select id="selectItem" 
+            parameterType="tour.list.web.model.detailCommon"
+            resultMap="detailCommonMap">
+        <!-- "#{변수명}" 으로 표시된 곳에 멤버변수가 치환된다. -->
+        SELECT resultCode ,resultMsg,numOfRows,pageNo,totalCount,contentid,contentypeid,createdtime,homepage,modifiedtime,title,overview,board_idBoard FROM detailCommon WHERE resultCode=#{resultCode};
+    </select>
+    
+    <!-- 다중행 조회를 위한 기능 정의 -->
+     <select id ="selectList"
+       parameterType="tour.list.web.model.detailCommon"
+       resultMap="detailCommonMap">
+       select resultCode ,resultMsg,numOfRows,pageNo,totalCount,contentid,contentypeid,createdtime,homepage,modifiedtime,title,overview,board_idBoard from detailCommon
+       <where>
+       <!-- Beans의 멤버 변수 -->
+       <!-- 조건에 맞는 조건절을 추가 -->
+          <if test="contentid != null and contentid != ''">
+          <!-- LIKE '%#{contentid}%'->LIKE '%',#{검색어},'%' -홑따옴표('') -->
+             contentid LIKE concat('%',#{contentid},'%')
+          </if>
+          
+          <if test= "contentypeid != null and contentid !=''">
+           or contentypeid LIKE 
+               ('%',#{contentypeid},'%')
+          </if>
+       </where>
+       order by resultCode DESC
+       <if test ="listCount>0">
+          LIMIT #{offset},#{listCount}
+       </if>
+       </select>
+    
+    <!-- 데이터 수 조회를 위한 기능 정의 -->
+    <select id="selectCount" 
+            parameterType="tour.list.web.model.detailCommon"
+            resultType="int">
+        <!-- 이 안에서 처리할 SQL문을 명시한다. -->
+        SELECT count(*) FROM detailCommon;
+        <where>
+       <!-- Beans의 멤버 변수 -->
+       <!-- 조건에 맞는 조건절을 추가 -->
+          <if test="contentid != null and contentid != ''">
+          <!-- LIKE '%#{contentid}%'->LIKE '%',#{검색어},'%' -홑따옴표('') -->
+             contentid LIKE concat('%',#{contentid},'%')
+          </if>
+          
+          <if test= "contentypeid != null and contentid !=''">
+           or contentypeid LIKE 
+               ('%',#{contentypeid},'%')
+          </if>
+       </where>
+    </select>
+    
+    <!-- 데이터 저장을 위한 기능 정의 -->
+    <insert id="insertItem" 
+            parameterType="tour.list.web.model.detailCommon"
+            useGeneratedKeys="true"
+            keyProperty="resultCode">
+        <!-- "#{변수명}" 으로 표시된 곳에 Beans의 멤버변수가 치환된다. -->
+        INSERT INTO detailCommon (resultMsg,numOfRows,pageNo,totalCount,contentid,contentypeid,createdtime,homepage,modifiedtime,title,overview,board_idBoard) VALUES (#{resultMsg},#{numOfRows},#{pageNo},#{totalCount},#{contentid},#{contentypeid},#{createdtime},#{homepage},#{modifiedtime},#{title},#{overview},#{board_idBoard});
+    </insert>
+    
+    <!-- 데이터 삭제를 위한 기능 정의 -->
+    <delete id="deleteItem" parameterType="tour.list.web.model.detailCommon">
+        <!-- 이 안에서 처리할 SQL문을 명시한다. -->
+        DELETE FROM detailCommon WHERE resultCode=#{resultCode};
+    </delete>
+    
+    <!-- 데이터 갱신을 위한 기능 정의 -->
+    <update id="updateItem" parameterType="tour.list.web.model.detailCommon">
+        <!-- 이 안에서 처리할 SQL문을 명시한다. -->
+        UPDATE detailCommon SET resultMsg=#{resultMsg}, numOfRows=#{numOfRows}, pageNo=#{pageNo}, totalCount=#{totalCount}, contentid=#{contentid}, contentypeid=#{contentypeid}, createdtime=#{createdtime}, homepage=#{homepage}, modifiedtime=#{modifiedtime}, title=#{title}, overview=#{overview}, board_idBoard=#{board_idBoard} Where resultCode=#{resultCode};
+    </update>
+    
+    
+</mapper>
