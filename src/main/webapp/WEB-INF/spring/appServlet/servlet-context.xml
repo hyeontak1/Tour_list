@@ -30,6 +30,8 @@
 	<context:component-scan base-package="tour.list.web" />
 	<context:component-scan base-package="tour.list.web.controller" />
 	<context:component-scan base-package="tour.list.web.service.impl" />
+	<context:component-scan base-package="tour.list.web.service" />
+	<context:component-scan base-package="tour.list.web.model" />
 
 	<!-- 인터셉터 등록 -->
 	<interceptors>
