@@ -33,9 +33,6 @@ public class searchKeywordApi {
 	          @SerializedName("totalCount")      private int totalCount;
 	          
 	          public class Items{
-	             @SerializedName("item")      private List<Item> item;
-	             
-	             public class Item{
 	                @SerializedName("addr1")            private String addr1;
 	                  @SerializedName("contentid")      private int contentid;
 	                  @SerializedName("contenttypeid")      private int contenttypeid;
@@ -44,10 +41,7 @@ public class searchKeywordApi {
 	                  @SerializedName("firstimage2")      private String firstimage2;
 	                  @SerializedName("modifiedtime")      private String modifiedtime;
 	                  @SerializedName("tel")      private String tel;
-	                  @SerializedName("title")      private String title;
-	                
-	             }
-	             
+	                  @SerializedName("title")      private String title;   
 	             
 	          }
 	         

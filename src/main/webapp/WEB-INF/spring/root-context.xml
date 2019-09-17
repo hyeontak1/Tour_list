@@ -79,6 +79,9 @@
         <qualifier value="regex" />
     </bean>
 
+	<bean id="retrofitHelper" class="tour.list.web.helper.RetrofitHelper" scope="singleton">
+        <qualifier value="retrofit" />
+    </bean>
     
      
    

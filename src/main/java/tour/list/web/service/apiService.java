@@ -7,6 +7,7 @@ import tour.list.web.model.detailCommonApi;
 import tour.list.web.model.detailImageApi;
 import tour.list.web.model.detailIntroApi;
 import tour.list.web.model.searchFestivalApi;
+import tour.list.web.model.searchKeywordApi;
 
 public interface apiService {
 	
@@ -14,7 +15,7 @@ public interface apiService {
 
 	// 키워드 검색
 	@GET("/openapi/service/rest/KorService/searchKeyword?ServiceKey=l2VTTN0fU0JbAUod9iD%2BKG04GF%2BWIr4GohyuKRP22H8ujU1rlliUqGxlveADrCtqIGocNfUu%2FK3EzQMXgSjEYw%3D%3D&numOfRows=6&MobileOS=AND&MobileApp=TourList&_type=json")
-	Call<detailCommonApi> getDetailCommonApi(@Query("keyword") String keyword);
+	Call<searchKeywordApi> getsearchKeywordApi(@Query("keyword") String keyword);
 	
 	// 행사 검색
 	@GET("/openapi/service/rest/KorService/searchFestival?ServiceKey=l2VTTN0fU0JbAUod9iD%2BKG04GF%2BWIr4GohyuKRP22H8ujU1rlliUqGxlveADrCtqIGocNfUu%2FK3EzQMXgSjEYw%3D%3D&numOfRows=6&MobileOS=AND&MobileApp=TourList&_type=json")
