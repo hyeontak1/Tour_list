@@ -35,4 +35,5 @@ public interface memberService {
      * 데이터 삭제하기
      */
     public int deleteMember(member input) throws Exception;
+    
 }

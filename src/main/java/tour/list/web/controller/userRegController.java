@@ -1,5 +1,7 @@
 package tour.list.web.controller;
 
+import java.util.Calendar;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -39,7 +41,12 @@ public class userRegController {
 		String mail=webHelper.getString("mail");
 		String phone=webHelper.getString("phone");
 		String address=webHelper.getString("address");
-		String reg=webHelper.getString("reg");
+		
+		String date = null;
+		Calendar c = Calendar.getInstance();
+		date = String.format("%04d-%02d-%02d-%02d-%02d-%02d", c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1,
+					c.get(Calendar.DAY_OF_MONTH), c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), c.get(Calendar.SECOND));
+		String reg=date.replace("-", "");
 		
 		if(id==null) {
 			return webHelper.redirect(null, "아이디를 입력하세요.");
