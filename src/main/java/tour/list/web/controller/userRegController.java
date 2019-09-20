@@ -90,6 +90,6 @@ public class userRegController {
 	         return webHelper.redirect(null,e.getLocalizedMessage());
 	    }
 		
-		return webHelper.redirect(contextPath + ???);
+		return webHelper.redirect(contextPath, null);
 	}
 }

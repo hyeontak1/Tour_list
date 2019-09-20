@@ -17,7 +17,7 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
-	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/assets/**" location="/WEB-INF/views/assets/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
@@ -30,6 +30,9 @@
 	<context:component-scan base-package="tour.list.web" />
 	<context:component-scan base-package="tour.list.web.controller" />
 	<context:component-scan base-package="tour.list.web.service.impl" />
+	<context:component-scan base-package="tour.list.web.service" />
+	<context:component-scan base-package="tour.list.web.helper" />
+	<context:component-scan base-package="tour.list.web.model" />
 
 
 	<!-- 인터셉터 등록 -->
