@@ -31,9 +31,11 @@
 	<context:component-scan base-package="tour.list.web.controller" />
 	<context:component-scan base-package="tour.list.web.service.impl" />
 	<context:component-scan base-package="tour.list.web.service" />
+	<context:component-scan base-package="tour.list.web.helper" />
 	<context:component-scan base-package="tour.list.web.model" />
 	<context:component-scan base-package="dao"/>
 	<context:component-scan base-package="dao.impl"/>
+
 
 	<!-- 인터셉터 등록 -->
 	<interceptors>
