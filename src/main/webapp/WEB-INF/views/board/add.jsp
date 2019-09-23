@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<%@ include file="../../include/include-header.jsp"%>
+<%@ include file="include-header.jsp"%>
 </head>
 <body>
 	<form method="post" action="${pageContext.request.contextPath}/board/add_ok.do">
@@ -27,7 +27,7 @@
 		<button type="submit">저장하기</button>
 		<button type="reset">다시작성</button>	
 	</form>
-	<%@ include file="/WEB-INF/include/include-body.jsp"%>
+	<%@ include file="include-body.jsp"%>
 
 </body>
 </html>
