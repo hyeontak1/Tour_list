@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import tour.list.web.helper.RegexHelper;
 import tour.list.web.helper.WebHelper;
 import tour.list.web.model.member;
 import tour.list.web.service.memberService;
@@ -22,6 +23,10 @@ public class MemberController {
 	WebHelper webHelper;
 	//service 객체주입
 	memberService MemberService;
+	
+	
+	@Autowired
+	RegexHelper regexHelper;
 	
 	//"/프로젝트이름" 에 해당하는 ContextPath 변수주입
 	@Value("#{servletContext.contextPath}")
@@ -88,6 +93,8 @@ public class MemberController {
 			//--> 데이터 저장에 성공하면 파라미터로 전달하는  input 객체에 pk값이 저장된다.
 			MemberService.addMember(input);
 		}catch(Exception e) {
+			/** 4) 결과를 확인하기 위한 페이지 이동 */
+			// 저장 결과를 확인하기 위해서 데이터 저장시 생성된 PK값을 상세 페이지로 전달해야 한다.
 			return webHelper.redirect(null,e.getLocalizedMessage());
 		}
 		

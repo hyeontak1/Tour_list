@@ -14,6 +14,15 @@
 </head>
 <body>
 		<h1>회원가입</h1>
+		<p>아이디: ${output.id}</p>
+		<p>패스워드: ${output.password}</p>
+		<p>이름: ${output.name}</p>
+		<p>성별: ${output.gender}</p>
+		<p>생년월일: ${output.birth}</p>
+		<p>이메일: ${output.mail}</p>
+		<p>핸드폰번호: ${output.phone}</p>
+		<p>주소: ${output.address}</p>
+		<p>가입날짜: ${output.reg}</p>
 
 		<hr/>
 

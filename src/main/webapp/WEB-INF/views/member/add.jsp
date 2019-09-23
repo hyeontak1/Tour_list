@@ -20,7 +20,7 @@
 			</div>
 			<div>
 				<label for ="password">패스워드</label>
-				<input type ="text" name="password" id="password" />
+				<input type ="password" name="password" id="password" />
 			</div>
 			
 			<div>
@@ -35,17 +35,17 @@
 			
 			<div>
 				<label for ="birth">생년월일</label>
-				<input type ="text" name="birth" id="birth" />
+				<input type ="date" name="birth" id="birth" />
 			</div>	
 			
 			<div>
 				<label for ="mail">이메일</label>
-				<input type ="text" name="mail" id="mail" />
+				<input type ="email" name="mail" id="mail" />
 			</div>
 			
 			<div>
 				<label for ="phone">핸드폰번호</label>
-				<input type ="text" name="phone" id="phone" />
+				<input type ="tel" name="phone" id="phone" />
 			</div>	
 			
 			<div>
