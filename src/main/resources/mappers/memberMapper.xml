@@ -20,28 +20,17 @@
          <result property="reg" column="reg" />
     </resultMap>
     
+    <!-- 로그인 -->
+    <select id="login" parameterType="tour.list.web.model.member" resultMap="memberMap">
+    SELECT id, name FROM member WHERE id=#{id} and password=#{password};
+    </select>
+    
     <!-- 단일행 조회를 위한 기능 정의 -->
     <select id="selectItem" 
             parameterType="tour.list.web.model.member"
             resultMap="memberMap">
         <!-- "#{변수명}" 으로 표시된 곳에 멤버변수가 치환된다. -->
         SELECT idNum ,id,password,name,gender,birth,mail,phone,address,reg FROM member WHERE idNum=#{idNum};
-    </select>
-    
-    <!-- 로그인을 위한 아이디 패스워드  -->
-      <select id="loginCheck" 
-            parameterType="tour.list.web.model.member"
-            resultMap="String">
-        <!-- "#{변수명}" 으로 표시된 곳에 멤버변수가 치환된다. -->
-        SELECT name AS name FROM member WHERE id=#{id} AND password=#{password};
-    </select>
-    <select id="viewMember" resultType="tour.list.web.model.member">
-    SELECT
-    	name AS name,
-    	id AS id,
-    	mail AS mail
-    FROM member
-    WHERE id = #{id} AND password = #{password}
     </select>
     
     <!-- 다중행 조회를 위한 기능 정의 -->

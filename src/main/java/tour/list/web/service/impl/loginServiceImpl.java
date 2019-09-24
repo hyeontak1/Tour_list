@@ -1,47 +1,40 @@
 package tour.list.web.service.impl;
 
-import javax.servlet.http.HttpSession;
-
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import tour.list.web.dao.loginDAO;
+import lombok.extern.slf4j.Slf4j;
 import tour.list.web.model.member;
 import tour.list.web.service.loginService;
 
-@Service // 현재 클래스를 스프링에서 관리하는 service bean으로 등록
+@Slf4j
+@Service
 public class loginServiceImpl implements loginService{
 
 	@Autowired
-	loginDAO loginDao;
+	SqlSession sqlSession;
 	
-	// 로그인 체크
+	public loginServiceImpl(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+	}
+	
 	@Override
-	public boolean loginCheck(member vo, HttpSession session) {
-		boolean result = loginDao.loginCheck(vo);
-		if(result) { // true일 경우 세션에 등록
-			member vo2 = viewMember(vo);
-			// 세션 변수 등록
-			session.setAttribute("id", vo2.getId());
-			session.setAttribute("password", vo2.getPassword());
+	public member login(member input) throws Exception {
+		member result = null;
+		try {
+		result = sqlSession.selectOne("memberMapper.login", input);
+		if(result == null) {
+			throw new NullPointerException("result=null");
+		}
+		}catch(NullPointerException e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("아이디 또는 비밀번호가 다릅니다.");
+		}catch(Exception e) {
+			log.error(e.getLocalizedMessage());
+			throw new Exception("데이터 조회에 실패했습니다.");
 		}
 		return result;
 	}
-
-	// 로그인 정보
-	@Override
-	public member viewMember(member vo) {
-		return loginDao.viewMember(vo);
-	}
-
-	// 로그아웃
-	@Override
-	public void logout(HttpSession session) {
-		// 세션 변수 개별 삭제
-		// session.removeAttribute("id");
-		// 세션 정보를 초기화 시킴
-		session.invalidate();
-	}
-
 
 }

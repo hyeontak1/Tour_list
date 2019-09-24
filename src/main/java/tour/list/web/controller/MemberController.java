@@ -22,7 +22,7 @@ public class MemberController {
 	@Autowired
 	WebHelper webHelper;
 	//service 객체주입
-	memberService MemberService;
+	memberService memberService;
 	
 	
 	@Autowired
@@ -31,6 +31,7 @@ public class MemberController {
 	//"/프로젝트이름" 에 해당하는 ContextPath 변수주입
 	@Value("#{servletContext.contextPath}")
 	String contextPath;
+	
 	@RequestMapping(value="/member/add.do", method= RequestMethod.GET)
 	public String add(Model model) {
 		return "member/add";
@@ -91,14 +92,14 @@ public class MemberController {
 		try {
 			//데이터 저장
 			//--> 데이터 저장에 성공하면 파라미터로 전달하는  input 객체에 pk값이 저장된다.
-			MemberService.addMember(input);
+			memberService.addMember(input);
 		}catch(Exception e) {
 			/** 4) 결과를 확인하기 위한 페이지 이동 */
 			// 저장 결과를 확인하기 위해서 데이터 저장시 생성된 PK값을 상세 페이지로 전달해야 한다.
 			return webHelper.redirect(null,e.getLocalizedMessage());
 		}
 		
-		return webHelper.redirect(contextPath +"/member/view.do?id=" + input.getIdNum(),"회원가입이되엇습니다.");
+		return webHelper.redirect(contextPath +"/member/view.do?id=" + input.getId(),"회원가입이되엇습니다.");
 		
 	}
 	
