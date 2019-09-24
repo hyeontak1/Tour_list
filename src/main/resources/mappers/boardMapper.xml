@@ -10,7 +10,6 @@
         <!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
         <result property="idBoard" column="idBoard" />
         <result property="title" column="title" />
-        <result property="write" column="write" />
         <result property="content" column="content" />
         <result property="date" column="date" />
         <result property="member1_idNum" column="member1_idNum" />
@@ -21,14 +20,14 @@
             parameterType="tour.list.web.model.board"
             resultMap="boardMap">
         <!-- "#{변수명}" 으로 표시된 곳에 멤버변수가 치환된다. -->
-        SELECT idBoard,title,write,content,date,member1_idNum FROM board WHERE idBoard=#{idBoard};
+        SELECT idBoard,title,content,date,member1_idNum FROM board WHERE idBoard=#{idBoard};
     </select>
     
     <!-- 다중행 조회를 위한 기능 정의 -->
      <select id ="selectList"
        parameterType="tour.list.web.model.board"
        resultMap="boardMap">
-       select idBoard,title,write,content,date,member1_idNum from board
+       select idBoard,title,content,date,member1_idNum from board
        <where>
        <!-- Beans의 멤버 변수 -->
        <!-- 조건에 맞는 조건절을 추가 -->
@@ -37,9 +36,9 @@
              title LIKE concat('%',#{title},'%')
           </if>
           
-          <if test= "write != null and write !=''">
-           or write LIKE 
-               ('%',#{write},'%')
+          <if test= "content != null and content !=''">
+           or content LIKE 
+              concat ('%',#{content},'%')
           </if>
        </where>
        order by idBoard DESC
@@ -59,12 +58,12 @@
        <!-- 조건에 맞는 조건절을 추가 -->
           <if test="title != null and title != ''">
           <!-- LIKE '%#{title}%'->LIKE '%',#{검색어},'%' -홑따옴표('') -->
-             title LIKE concat('%',#{title},'%')
+             title LIKE concat ('%',#{title},'%')
           </if>
           
-          <if test= "write != null and write !=''">
-           or write LIKE 
-               ('%',#{write},'%')
+          <if test= "content != null and content !=''">
+           or content LIKE 
+               concat ('%',#{content},'%')
           </if>
        </where>
     </select>
@@ -75,7 +74,7 @@
             useGeneratedKeys="true"
             keyProperty="idBoard">
         <!-- "#{변수명}" 으로 표시된 곳에 Beans의 멤버변수가 치환된다. -->
-        INSERT INTO board (title,write,content,date,member1_idNum) VALUES (#{title},#{write},#{content},#{date},#{member1_idNum});
+        INSERT INTO board (title,content,date,member1_idNum) VALUES (#{title},#{content},#{date},#{member1_idNum});
     </insert>
     
     <!-- 데이터 삭제를 위한 기능 정의 -->
@@ -87,7 +86,7 @@
     <!-- 데이터 갱신을 위한 기능 정의 -->
     <update id="updateItem" parameterType="tour.list.web.model.board">
         <!-- 이 안에서 처리할 SQL문을 명시한다. -->
-        UPDATE board SET title=#{title}, write=#{write}, content=#{content}, date=#{date}, member1_idNum=#{member1_idNum} Where idBoard=#{idBoard};
+        UPDATE board SET title=#{title}, content=#{content}, date=#{date}, member1_idNum=#{member1_idNum} Where idBoard=#{idBoard};
     </update>
     
     

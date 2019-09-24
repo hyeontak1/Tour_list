@@ -6,33 +6,26 @@ import tour.list.web.model.board;
 
 public interface boardService {
 
-	 /**
-     * 데이터 상세 조회
-     */
     public board getBoardItem(board input) throws Exception;
     
-    /**
-     * 데이터 목록 조회
-     */
+    
     public List<board> getBoardList(board input) throws Exception;
     
-    /**
-     * 데이터가 저장되어 있는 갯수 조회
-     */
+    
     public int getBoardCount(board input) throws Exception;
     
     /**
-     * 데이터 등록하기
+     * �뜲�씠�꽣 �벑濡앺븯湲�
      */
     public int addBoard(board input) throws Exception;
     
     /**
-     * 데이터 수정하기
+     * �뜲�씠�꽣 �닔�젙�븯湲�
      */
     public int editBoard(board input) throws Exception;
     
     /**
-     * 데이터 삭제하기
+     * �뜲�씠�꽣 �궘�젣�븯湲�
      */
     public int deleteBoard(board input) throws Exception;
 

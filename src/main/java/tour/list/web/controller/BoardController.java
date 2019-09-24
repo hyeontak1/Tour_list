@@ -47,7 +47,7 @@ public class BoardController {
 		/**데이터 조회하기*/
 		board input = new board();
 		input.setTitle(keyword);
-		input.setWrite(keyword);
+		input.setContent(keyword);
 		
 		List<board> output=null;
 		PageData pageData = null;
@@ -109,14 +109,14 @@ public class BoardController {
 	public ModelAndView add_ok(Model model) {
 		/**사용자가 입력한 파라미터 수신 및 유효성 검사*/
 		String title = webHelper.getString("title");
-		String write = webHelper.getString("write");
+		String content = webHelper.getString("content");
 		
 		//학과 이름은 필수항목이므로 입력 여부를 검사
 		if(title==null) {
 			return webHelper.redirect(null, "제목을 입력하세요");
 		}
 		
-		if(write==null) {
+		if(content==null) {
 			return webHelper.redirect(null, "내용을 입력하세요");
 		}
 		
@@ -124,7 +124,7 @@ public class BoardController {
 		//저장할 값들을 Beans에 담는다.
 		board input= new board();
 		input.setTitle(title);
-		input.setWrite(write);
+		input.setContent(content);
 		
 		try {
 			//데이터 저장
@@ -168,7 +168,7 @@ public class BoardController {
 		
 		int idBoard=webHelper.getInt("idBoard");
 		String title=webHelper.getString("title");
-		String write = webHelper.getString("write");
+		String content = webHelper.getString("content");
 		
 		if(idBoard==0) {
 			return webHelper.redirect(null, "번호가 없습니다");
@@ -178,14 +178,14 @@ public class BoardController {
 			return webHelper.redirect(null, "제목을 입력하세요");
 		}
 		
-		if(write==null) {
+		if(content==null) {
 			return webHelper.redirect(null, "내용을 입력하세요");
 		}
 		
 		board input=new board();
 		input.setIdBoard(idBoard);
 		input.setTitle(title);
-		input.setWrite(write);
+		input.setContent(content);
 		
 		try {
 			boardService.editBoard(input);
