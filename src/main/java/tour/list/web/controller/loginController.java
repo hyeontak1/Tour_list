@@ -56,4 +56,10 @@ public class loginController {
 	return new ModelAndView("login/check");
 	}
 	
+	@RequestMapping(value="/login/logout.do", method = RequestMethod.GET)
+	public ModelAndView logout(Model model) {
+		member output = null;
+		model.addAttribute("output", output);
+		return new ModelAndView("login/check");
+	}
 }

@@ -25,7 +25,10 @@
 </form>
 </c:if>
 <c:if test="${output != null}">
+<form action="${pageContext.request.contextPath}/login/logout.do">
 <div>${output.name}님 환영합니다.</div>
+<button type="submit">로그아웃</button>
+</form>
 </c:if>
 </body>
 </html>
