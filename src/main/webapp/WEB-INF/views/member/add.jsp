@@ -52,11 +52,7 @@
 				<label for ="address">주소</label>
 				<input type ="text" name="address" id="address" />
 			</div>
-			
-			<div>
-				<label for ="reg">가입날짜</label>
-				<input type ="text" name="reg" id="reg" />
-			</div>				
+						
 			<hr/>
 			
 			<button type="submit">저장하기</button>

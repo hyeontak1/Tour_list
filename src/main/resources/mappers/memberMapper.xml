@@ -17,7 +17,7 @@
         <result property="mail" column="mail" />
         <result property="phone" column="phone" />
         <result property="address" column="address" />
-         <result property="reg" column="reg" />
+        
     </resultMap>
     
     <!-- 로그인 -->
@@ -30,14 +30,16 @@
             parameterType="tour.list.web.model.member"
             resultMap="memberMap">
         <!-- "#{변수명}" 으로 표시된 곳에 멤버변수가 치환된다. -->
-        SELECT idNum ,id,password,name,gender,birth,mail,phone,address,reg FROM member WHERE idNum=#{idNum};
+
+        SELECT idNum ,id,password,name,gender,birth,mail,phone,address FROM member WHERE idNum=#{idNum};
     </select>
     
+   
     <!-- 다중행 조회를 위한 기능 정의 -->
      <select id ="selectList"
        parameterType="tour.list.web.model.member"
        resultMap="memberMap">
-       select idNum,id,password,name,gender,birth,mail,phone,address,reg from member
+       select idNum,id,password,name,gender,birth,mail,phone,address from member
        <where>
        <!-- Beans의 멤버 변수 -->
        <!-- 조건에 맞는 조건절을 추가 -->
@@ -84,7 +86,7 @@
             useGeneratedKeys="true"
             keyProperty="idNum">
         <!-- "#{변수명}" 으로 표시된 곳에 Beans의 멤버변수가 치환된다. -->
-        INSERT INTO member (id,password,name,gender,birth,mail,phone,address,reg) VALUES (#{id},#{password},#{name},#{gender},#{birth},#{mail},#{phone},#{address},#{reg});
+        INSERT INTO member (id,password,name,gender,birth,mail,phone,address) VALUES (#{id},#{password},#{name},#{gender},#{birth},#{mail},#{phone},#{address});
     </insert>
     
     <!-- 데이터 삭제를 위한 기능 정의 -->
@@ -96,7 +98,7 @@
     <!-- 데이터 갱신을 위한 기능 정의 -->
     <update id="updateItem" parameterType="tour.list.web.model.member">
         <!-- 이 안에서 처리할 SQL문을 명시한다. -->
-        UPDATE department SET id=#{id}, password=#{password}, name=#{name}, gender=#{gender}, birth=#{birth}, mail=#{mail}, phone=#{phone}, address=#{address}, reg=#{reg} Where idNum=#{idNum};
+        UPDATE department SET id=#{id}, password=#{password}, name=#{name}, gender=#{gender}, birth=#{birth}, mail=#{mail}, phone=#{phone}, address=#{address}, Where idNum=#{idNum};
     </update>
     
     
